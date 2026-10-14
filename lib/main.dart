@@ -60,7 +60,16 @@ class GameController extends ChangeNotifier {
     if (LudoGameState.safeCells.contains(next)) return 300;
     return t.progress + roll;
   }
-  void reset() { game = null; notifyListeners(); }
+  void setSoundOn(bool value) {
+    if (soundOn == value) return;
+    soundOn = value;
+    notifyListeners();
+  }
+
+  void reset() {
+    game = null;
+    notifyListeners();
+  }
 }
 
 class LudoApp extends StatelessWidget {
@@ -151,7 +160,7 @@ class BoardPainter extends CustomPainter {
     canvas.drawRRect(RRect.fromRectAndRadius(Offset.zero & size, const Radius.circular(18)), Paint()..color = const Color(0xFF25283D));
     final homes = [(0,0,6,6,PlayerColor.red),(9,0,6,6,PlayerColor.green),(9,9,6,6,PlayerColor.yellow),(0,9,6,6,PlayerColor.blue)];
     for(final h in homes) {
-      p.color = color(h.$5).withOpacity(.24);
+      p.color = color(h.$5).withValues(alpha: .24);
       canvas.drawRRect(RRect.fromRectAndRadius(Rect.fromLTWH(h.$1*cell,h.$2*cell,h.$3*cell,h.$4*cell), const Radius.circular(12)), p);
       p.color = color(h.$5);
       canvas.drawRRect(RRect.fromRectAndRadius(Rect.fromLTWH((h.$1+1)*cell,(h.$2+1)*cell,4*cell,4*cell), const Radius.circular(9)), p);
@@ -204,6 +213,6 @@ class SettingsScreen extends StatefulWidget {
 class _SettingsScreenState extends State<SettingsScreen> {
   @override Widget build(BuildContext context) {
     final c=context.watch<GameController>();
-    return Scaffold(appBar: AppBar(title: const Text('Settings')), body: SwitchListTile(title: const Text('Sound effects'), subtitle: const Text('Sound setting placeholder for MVP'), value: c.soundOn, onChanged: (v) { c.soundOn=v; c.notifyListeners(); setState((){}); }));
+    return Scaffold(appBar: AppBar(title: const Text('Settings')), body: SwitchListTile(title: const Text('Sound effects'), subtitle: const Text('Sound setting placeholder for MVP'), value: c.soundOn, onChanged: c.setSoundOn));
   }
 }
