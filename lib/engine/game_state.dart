@@ -21,7 +21,7 @@ class LudoPlayer {
 class LudoGameState {
   LudoGameState({Random? random, int playerCount = 4, bool computerMode = false})
       : _random = random ?? Random(),
-        players = List.generate(playerCount.clamp(2, 4), (i) => LudoPlayer(
+        players = List.generate(playerCount.clamp(2, 4).toInt(), (i) => LudoPlayer(
           PlayerColor.values[i],
           isComputer: computerMode && i > 0,
         ));
@@ -99,7 +99,7 @@ class LudoGameState {
     if (lastRoll != null && legalTokenIndexes().isEmpty) {
       final roll = lastRoll!;
       lastRoll = null;
-      if (roll != 6 && !gameOver) _nextPlayer();
+      if (!gameOver) _nextPlayer();
     }
   }
 
