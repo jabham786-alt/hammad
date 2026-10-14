@@ -71,7 +71,17 @@ class LudoApp extends StatelessWidget {
     debugShowCheckedModeBanner: false,
     title: 'Ludo — Offline',
     theme: ThemeData(colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF6655D9), brightness: Brightness.dark), useMaterial3: true),
-    home: const MenuScreen(),
+    home: const RootScreen(),
+  );
+}
+
+class RootScreen extends StatelessWidget {
+  const RootScreen({super.key});
+  @override
+  Widget build(BuildContext context) => Consumer<GameController>(
+    builder: (context, controller, _) => controller.game == null
+      ? const MenuScreen()
+      : const GameScreen(),
   );
 }
 
