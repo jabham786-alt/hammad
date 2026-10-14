@@ -1,0 +1,24 @@
+# QA Checklist
+
+- [ ] App launches in portrait orientation.
+- [ ] Main menu renders without overflow.
+- [ ] Play vs Computer starts a new game.
+- [ ] Pass & Play starts a local game.
+- [ ] Roll button produces a dice result.
+- [ ] Roll button is disabled while a move is pending.
+- [ ] Base token is selectable only on a six.
+- [ ] Legal move chips are highlighted.
+- [ ] Illegal token cannot be moved.
+- [ ] Token advances by the dice value.
+- [ ] Exact roll is required to finish.
+- [ ] Safe cells are not capturable.
+- [ ] Opponent token on a non-safe cell can be captured.
+- [ ] A six grants an extra turn.
+- [ ] Third consecutive six forfeits the turn.
+- [ ] No legal moves pass the turn.
+- [ ] Four finished tokens produce a winner.
+- [ ] Play Again starts a fresh game.
+- [ ] Home button returns to the menu.
+- [ ] Settings screen opens and sound switch toggles.
+- [ ] Small-screen layout has no overflow.
+- [ ] Test on a physical Android device before release.
