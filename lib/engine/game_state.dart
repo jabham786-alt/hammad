@@ -106,7 +106,6 @@ class LudoGameState {
 
   void passIfNoLegalMove() {
     if (lastRoll != null && legalTokenIndexes().isEmpty) {
-      final roll = lastRoll!;
       lastRoll = null;
       if (!gameOver) _nextPlayer();
     }
