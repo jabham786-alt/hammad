@@ -1,4 +1,3 @@
-import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
@@ -164,13 +163,6 @@ class BoardPainter extends CustomPainter {
         canvas.drawCircle(Offset(dx,dy), cell*.32, p);
       }
     }
-    final track = <Point<int>>[];
-    for(var x=1;x<=6;x++) track.add(Point(x,7));
-    for(var y=6;y>=1;y--) track.add(Point(7,y));
-    for(var y=1;y<=6;y++) track.add(Point(7,y));
-    for(var x=8;x<=13;x++) track.add(Point(x,7));
-    for(var y=8;y<=13;y++) track.add(Point(7,y));
-    for(var x=13;x>=8;x--) track.add(Point(x,7));
     // Draw a clear 15x15 grid backdrop; token progress is displayed below as selectable chips.
     p.color = const Color(0xFF42465D);
     for(var i=0;i<=15;i++) {
@@ -180,7 +172,6 @@ class BoardPainter extends CustomPainter {
     for(final player in game.players) {
       p.color = color(player.color);
       for(var i=0;i<player.tokens.length;i++) {
-        final t=player.tokens[i];
         final x=(2+(i%2)*1.5)*cell, y=(2+(i~/2)*1.5)*cell;
         final base = switch(player.color) { PlayerColor.red => Offset(x,y), PlayerColor.green => Offset(size.width-x,y), PlayerColor.yellow => Offset(size.width-x,size.height-y), PlayerColor.blue => Offset(x,size.height-y) };
         canvas.drawCircle(base,cell*.26,p);
