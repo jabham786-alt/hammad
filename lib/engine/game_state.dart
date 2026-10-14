@@ -73,14 +73,23 @@ class LudoGameState {
     if (token.progress <= 50) {
       final cell = (starts[currentPlayer.color]! + token.progress) % 52;
       if (!safeCells.contains(cell)) {
+        final occupants = <LudoToken>[];
+        final occupantColors = <PlayerColor>{};
         for (final opponent in players.where((p) => p != currentPlayer)) {
-          final occupants = opponent.tokens.where((t) =>
-            t.progress >= 0 && t.progress <= 50 &&
-            (starts[opponent.color]! + t.progress) % 52 == cell).toList();
-          if (occupants.isNotEmpty) {
-            for (final enemy in occupants) { enemy.progress = -1; }
-            captured = true;
+          for (final enemy in opponent.tokens) {
+            if (enemy.progress >= 0 && enemy.progress <= 50 &&
+                (starts[opponent.color]! + enemy.progress) % 52 == cell) {
+              occupants.add(enemy);
+              occupantColors.add(opponent.color);
+            }
           }
+        }
+        // Only capture a single opponent token or a stack belonging to one color.
+        if (occupants.isNotEmpty && occupantColors.length == 1) {
+          for (final enemy in occupants) {
+            enemy.progress = -1;
+          }
+          captured = true;
         }
       }
     }
